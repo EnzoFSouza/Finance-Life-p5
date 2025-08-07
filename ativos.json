@@ -1,0 +1,141 @@
+{
+    "titulo": "Ativos Financeiros",
+    "ativos": [
+        {
+            "nome": "ABC11",
+            "preco_medio": 20.0,
+            "quantidade": 2,
+            "dy_mensal": 1,
+            "dy_anual": 12,
+            "preco_atual": 25
+        },
+        {
+            "nome": "DEF11",
+            "preco_medio": 5.0,
+            "quantidade": 10,
+            "dy_mensal": 0.5,
+            "dy_anual": 6,
+            "preco_atual": 10
+        },
+        {
+            "nome": "GHI34",
+            "preco_medio": 10,
+            "quantidade": 2,
+            "dy_mensal": 1,
+            "dy_anual": 12,
+            "preco_atual": 15
+        },
+        {
+            "nome": "JKL33",
+            "preco_medio": 1,
+            "quantidade": 15,
+            "dy_mensal": 0,
+            "dy_anual": 0,
+            "preco_atual": 2
+        },
+        {
+            "nome": "MNO11",
+            "preco_medio": 10,
+            "quantidade": 5,
+            "dy_mensal": 0.7,
+            "dy_anual": 8,
+            "preco_atual": 5
+        },
+        {
+            "nome": "PQR3",
+            "preco_medio": 50,
+            "quantidade": 2,
+            "dy_mensal": 1,
+            "dy_anual": 12,
+            "preco_atual": 60
+        },
+        {
+            "nome": "STU3",
+            "preco_medio": 90,
+            "quantidade": 1,
+            "dy_mensal": 1,
+            "dy_anual": 12,
+            "preco_atual": 100
+        },
+        {
+            "nome": "VWX4",
+            "preco_medio": 15,
+            "quantidade": 3,
+            "dy_mensal": 0,
+            "dy_anual": 0,
+            "preco_atual": 20
+        },
+        {
+            "nome": "YZA4",
+            "preco_medio": 3,
+            "quantidade": 12,
+            "dy_mensal": 0,
+            "dy_anual": 0,
+            "preco_atual": 5
+        },
+        {
+            "nome": "BCD34",
+            "preco_medio": 28,
+            "quantidade": 6,
+            "dy_mensal": 0.8,
+            "dy_anual": 9,
+            "preco_atual": 30
+        },
+        {
+            "nome": "EFG11",
+            "preco_medio": 34,
+            "quantidade": 1,
+            "dy_mensal": 1,
+            "dy_anual": 12,
+            "preco_atual": 35
+        },
+        {
+            "nome": "HIJ4",
+            "preco_medio": 30,
+            "quantidade": 4,
+            "dy_mensal": 0.8,
+            "dy_anual": 9,
+            "preco_atual": 35
+        },
+        {
+            "nome": "LMN5",
+            "preco_medio": 18,
+            "quantidade": 10,
+            "dy_mensal": 1,
+            "dy_anual": 12,
+            "preco_atual": 25
+        },
+        {
+            "nome": "OPQ11",
+            "preco_medio": 3,
+            "quantidade": 10,
+            "dy_mensal": 1,
+            "dy_anual": 9,
+            "preco_atual": 6
+        },
+        {
+            "nome": "RST11",
+            "preco_medio": 2,
+            "quantidade": 10,
+            "dy_mensal": 0,
+            "dy_anual": 0,
+            "preco_atual": 6
+        },
+        {
+            "nome": "UVW3",
+            "preco_medio": 10,
+            "quantidade": 5,
+            "dy_mensal": 0.9,
+            "dy_anual": 9,
+            "preco_atual": 18
+        },
+        {
+            "nome": "XYZ11",
+            "preco_medio": 100,
+            "quantidade": 1,
+            "dy_mensal": 1.1,
+            "dy_anual": 13,
+            "preco_atual": 150
+        }
+    ]
+}
