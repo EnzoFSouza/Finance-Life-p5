@@ -53,7 +53,7 @@ class Ativo{
 var tela = "inicio";
 //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 function preload() {
-    dados = loadJSON('ativos.json');
+    dados = loadJSON('ativos_novo.json');
 }
 
 var titulo;
