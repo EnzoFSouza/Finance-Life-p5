@@ -29,13 +29,13 @@ class Ativo{
 
   displayScreen(){
     textSize(50);
-    text(this.name, 70, 800);
+    text(this.name, 70, 100);
     textSize(30);
-    text("Preço atual: " + this.price, 70, 850);
-    text("Quantidade: " + this.amount, 70, 900);
-    text("Data do pagamento: " + this.data_pagamento, 70, 950);
-    text("Data do dividendo: " + this.data_com, 70, 1000);
-    text("Valor do dividendo: " + (this.price * this.amount).toFixed(2), 70, 1050);
+    text("Preço atual: " + this.price, 70, 150);
+    text("Quantidade: " + this.amount, 70, 200);
+    text("Data do pagamento: " + this.data_pagamento, 70, 250);
+    text("Data do dividendo: " + this.data_com, 70, 300);
+    text("Valor do dividendo: " + (this.price * this.amount).toFixed(2), 70, 350);
     fill(255, 255, 255);
     rect(x_voltar, y_voltar, largura_voltar, altura_voltar);
     fill(0,0,0);
@@ -73,12 +73,12 @@ function setup() {
   titulo = dados.titulo;
   ativos = dados.ativos;
   for(var i = 0; i < ativos.length; i++){
-    var x = 100 + (i % 4) * 300; //distribute objects in a grid
-    var y = 200 + Math.floor(i / 4) * 300; //distribute objects in a grid
+    var x = 70 + (i % 4) * 300; //distribute objects in a grid
+    var y = 300 + Math.floor(i / 4) * 300; //distribute objects in a grid
 
     var ativo = ativos[i];
     console.log(ativo);
-    objetos.push(new Ativo(x, y, ativo.nome, ativo.preco_atual, ativo.quantidade));
+    objetos.push(new Ativo(x, y, ativo.nome, ativo.preco_atual, ativo.quantidade, ativo.data_com, ativo.data_pagamento));
     posicoes_x.push(x);
     posicoes_y.push(y);
   }
