@@ -16,7 +16,7 @@ class Ativo{
 
   displayInfo(){
     fill(255,255,255);
-    rect(this.x - 20, this.y - 40, this.informacoes.length * 50, 150);
+    rect(this.x - 20, this.y - 40, this.informacoes.length * 50, this.informacoes.length * 50, 15);
 
     fill(0,0,0);
     textSize(30);
@@ -78,8 +78,8 @@ function setup() {
   ativos = dados.ativos;
 
   for(var i = 0; i < ativos.length; i++){
-    var x = 70 + (i % 4) * 300; //distribute objects in a grid
-    var y = 300 + Math.floor(i / 4) * 300; //distribute objects in a grid
+    var x = 70 + (i % 5) * 300; //distribute objects in a grid
+    var y = 300 + Math.floor(i / 5) * 300; //distribute objects in a grid
 
     var ativo = ativos[i];
     
@@ -106,9 +106,9 @@ function draw() {
   if (tela === "inicio"){
     textSize(50);
     fill(0, 0, 0);
-    text(titulo, 50, 100);
+    text(titulo, 600, 100);
     textSize(30);
-    text("Clique em um ativo para ver mais informações", 50, 150);
+    text("Clique em um ativo para ver mais informações", 530, 150);
     for(var i = 0; i < objetos.length; i++){
       objetos[i].displayInfo();
       finish_angle = start_angle + (TWO_PI * ((objetos[i].price * objetos[i].amount) / valor_total));
@@ -132,7 +132,7 @@ function draw() {
 function mouseClicked(){ //navigate through screens
   for(var i = 0; i < objetos.length; i++){
     if(mouseX > posicoes_x[i] - 20 && mouseX < posicoes_x[i] - 20 + objetos[i].informacoes.length * 50 &&
-       mouseY > posicoes_y[i] - 40 && mouseY < posicoes_y[i] - 40 + 150){
+       mouseY > posicoes_y[i] - 40 && mouseY < posicoes_y[i] - 40 + objetos[i].informacoes.length * 50){
         tela = i; //go to screen i
     } 
   }
@@ -148,4 +148,5 @@ function getRandomRgbColor() {
 function createArc(x, y, w, h, start_angle, finish_angle, color){
   fill(color);
   arc(x, y, w, h, start_angle, finish_angle, PIE);
+  fill('black');
 }
