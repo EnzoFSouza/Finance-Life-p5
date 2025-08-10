@@ -12,7 +12,7 @@ class Ativo{
     
     this.informacoes = [this.name, this.price, this.amount, this.tipo, this.data_com, this.data_pagamento];
 
-    this.desloc = 5;
+    this.desloc;
   }
 
   displayInfo(){
@@ -24,7 +24,15 @@ class Ativo{
     text(this.name, this.x + 10, this.y + 20);
 
     textSize(45);
-    text(this.tipo, this.x + 60, this.y + 100);
+    if (this.tipo == "Acao"){
+      this.desloc = 45;
+      
+    }
+    else if (this.tipo == "FII"){
+      this.desloc = 60;
+    }
+
+    text(this.tipo, this.x + this.desloc, this.y + 100);
     text(this.price, this.x + 60, this.y + 170);
   }
 
@@ -68,6 +76,8 @@ var valor_total = 0;
 
 var start_angle = 0;
 
+var cores = [];
+
 function preload() {
     dados = loadJSON('ativos_novo.json');
 }
@@ -90,15 +100,10 @@ function setup() {
     posicoes_y.push(y);
   }
 
+  for(var i = 0; i < objetos.length; i++){
+    cores.push(getRandomRgbColor()); //generate random colors for each object
+  }
 }
-
-var cor1 = getRandomRgbColor();
-var cor2 = getRandomRgbColor();
-var cor3 = getRandomRgbColor();
-var cor4 = getRandomRgbColor();
-var cor5 = getRandomRgbColor();
-
-var cores = [cor1, cor2, cor3, cor4, cor5];
 
 function draw() {    
   background('rgba(220, 255, 230, 1)');
@@ -110,13 +115,14 @@ function draw() {
     textSize(30);
     text("Clique em um ativo para ver mais informações", 530, 150);
     for(var i = 0; i < objetos.length; i++){
+      console.log(i % cores.length);
       objetos[i].displayInfo();
       finish_angle = start_angle + (TWO_PI * ((objetos[i].price * objetos[i].amount) / valor_total));
-      createArc(800, 800, 400, 400, start_angle, finish_angle, cores[i % cores.length]);
+      createArc(1000, 1000, 400, 400, start_angle, finish_angle, cores[i % cores.length]);
       start_angle = finish_angle; // update the start angle for the next arc
     }
 
-    text(mouseX + ", " + mouseY, 1500, 50);
+    text(mouseX + ", " + mouseY, 1400, 50);
   }
 
   else {
