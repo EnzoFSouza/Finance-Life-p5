@@ -1,32 +1,31 @@
 class Ativo{
-  constructor(x = 0, y = 0, name = "", price = 0, amount = 0, data_com = "", data_pagamento = ""){
+  constructor(x = 0, y = 0, name = "", price = 0, amount = 0, tipo = "", data_com = "", data_pagamento = ""){
     this.x = x;
     this.y = y;
 
     this.name = name;
     this.price = price;
     this.amount = amount;
+    this.tipo = tipo;
     this.data_com = data_com;
     this.data_pagamento = data_pagamento;
     
-    this.informacoes = [this.name, this.price, this.amount, this.data_com, this.data_pagamento];
+    this.informacoes = [this.name, this.price, this.amount, this.tipo, this.data_com, this.data_pagamento];
 
     this.desloc = 5;
   }
 
   displayInfo(){
     fill(255,255,255);
-    rect(this.x - 20, this.y - 40, this.informacoes.length * 50, this.informacoes.length * 50, 15);
+    rect(this.x - 20, this.y - 40, this.informacoes.length * 40, this.informacoes.length * 40, 15);
 
     fill(0,0,0);
-    textSize(30);
-    
-    for(var i = 0; i < this.informacoes.length; i++){
-        text(this.informacoes[i], this.x, this.y + this.desloc)    
-        this.desloc += 35;
-    }
+    textSize(60);
+    text(this.name, this.x + 10, this.y + 20);
 
-    this.desloc = 5; //reset desloc
+    textSize(45);
+    text(this.tipo, this.x + 60, this.y + 100);
+    text(this.price, this.x + 60, this.y + 170);
   }
 
   displayScreen(){
@@ -35,8 +34,9 @@ class Ativo{
     textSize(30);
     text("Preço atual: " + this.price, 70, 150);
     text("Quantidade: " + this.amount, 70, 200);
-    text("Data com: " + this.data_com, 70, 250);
-    text("Data do pagamento: " + this.data_pagamento, 70, 300);
+    text("Tipo: " + this.tipo, 70, 250);
+    text("Data com: " + this.data_com, 70, 300);
+    text("Data do pagamento: " + this.data_pagamento, 70, 350);
 
     fill(255, 255, 255);
     rect(x_voltar, y_voltar, largura_voltar, altura_voltar);
@@ -85,7 +85,7 @@ function setup() {
     
     valor_total += ativo.preco_atual * ativo.quantidade;
 
-    objetos.push(new Ativo(x, y, ativo.nome, ativo.preco_atual, ativo.quantidade, ativo.data_com, ativo.data_pagamento));
+    objetos.push(new Ativo(x, y, ativo.nome, ativo.preco_atual, ativo.quantidade, ativo.tipo, ativo.data_com, ativo.data_pagamento));
     posicoes_x.push(x);
     posicoes_y.push(y);
   }
@@ -131,8 +131,8 @@ function draw() {
 
 function mouseClicked(){ //navigate through screens
   for(var i = 0; i < objetos.length; i++){
-    if(mouseX > posicoes_x[i] - 20 && mouseX < posicoes_x[i] - 20 + objetos[i].informacoes.length * 50 &&
-       mouseY > posicoes_y[i] - 40 && mouseY < posicoes_y[i] - 40 + objetos[i].informacoes.length * 50){
+    if(mouseX > posicoes_x[i] - 20 && mouseX < posicoes_x[i] - 20 + objetos[i].informacoes.length * 40 &&
+       mouseY > posicoes_y[i] - 40 && mouseY < posicoes_y[i] - 40 + objetos[i].informacoes.length * 40){
         tela = i; //go to screen i
     } 
   }

@@ -9,7 +9,8 @@
             "data_pagamento": "17 - 19",
             "dy_mensal": 1,
             "dy_anual": 12,
-            "preco_atual": 25
+            "preco_atual": 25,
+            "tipo": "FII"
         },
         {
             "nome": "DEF11",
@@ -19,7 +20,8 @@
             "data_pagamento": "8 - 10",
             "dy_mensal": 0.5,
             "dy_anual": 6,
-            "preco_atual": 10
+            "preco_atual": 10,
+            "tipo": "FII"
         },
         {
             "nome": "GHI34",
@@ -29,7 +31,8 @@
             "data_pagamento": "17 - 19",
             "dy_mensal": 1,
             "dy_anual": 12,
-            "preco_atual": 15
+            "preco_atual": 15,
+            "tipo": "Acao"
         },
         {
             "nome": "JKL33",
@@ -39,7 +42,8 @@
             "data_pagamento": "7 - 10",
             "dy_mensal": 0,
             "dy_anual": 0,
-            "preco_atual": 2
+            "preco_atual": 2,
+            "tipo": "Acao"
         },
         {
             "nome": "MNO11",
@@ -49,7 +53,30 @@
             "data_pagamento": "28 - 31",
             "dy_mensal": 0.7,
             "dy_anual": 8,
-            "preco_atual": 5
+            "preco_atual": 5,
+            "tipo": "Acao"
+        },
+        {
+            "nome": "PQR11",
+            "preco_medio": 10,
+            "quantidade": 5,
+            "data_com": "15 - 17",
+            "data_pagamento": "28 - 31",
+            "dy_mensal": 0.7,
+            "dy_anual": 8,
+            "preco_atual": 5,
+            "tipo": "FII"
+        },
+        {
+            "nome": "STU11",
+            "preco_medio": 10,
+            "quantidade": 5,
+            "data_com": "15 - 17",
+            "data_pagamento": "28 - 31",
+            "dy_mensal": 0.7,
+            "dy_anual": 8,
+            "preco_atual": 5,
+            "tipo": "FII"
         }
     ]
 }
