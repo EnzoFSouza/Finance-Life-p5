@@ -13,9 +13,9 @@ var preco_etf = 0;
 var preco_bdr = 0;
 var preco_total = 0;
 
-var precos = [10, 20, 15, 30, 25, 12]; //precos dos ativos
-var quantidades = [5, 4, 8, 2, 4, 10]; //quantidades dos ativos
-var ppa = [50, 80, 120, 60, 100, 120]; //precos por ativo (precos * quantidades)
+var precos = []; //precos dos ativos
+var quantidades = []; //quantidades dos ativos
+var ppa = []; //precos por ativo (precos * quantidades)
 
 var pratimonio_total = 510; //patrimonio total
 
@@ -51,9 +51,18 @@ function setup() { //setup
         else if (ativos[j].tipo == "bdr"){
             preco_bdr += ativos[j].preco * ativos[j].quantidade;
         }
+
+        precos.push(ativos[j].preco);
+        quantidades.push(ativos[j].quantidade);
+        ppa.push(ativos[j].preco * ativos[j].quantidade);
     }
     //supondo que existem somente 4 tipos
     preco_total = preco_acao + preco_fii + preco_etf + preco_bdr;
+    console.log("Preço Ações: " + preco_acao);
+    console.log("Preço FIIs: " + preco_fii);
+    console.log("Preço ETFs: " + preco_etf);
+    console.log("Preço BDRs: " + preco_bdr);
+    console.log("Preço Total: " + preco_total);
 }
 
 function draw() { //draw loop 
@@ -217,42 +226,43 @@ function criarBotao(x_bot, y_bot, w, h, texto, x_txt, y_txt, cor){ //create butt
 function desenharGrafico(tipo){ //desenhar grafico de acordo com tipo de ativo
     if (tipo == "todos"){
         fill('red');
-        arc(540, 325, 400, 400, start_arc, TWO_PI * (ppa[0] / 510));
+        arc(540, 325, 400, 400, start_arc, TWO_PI * (ppa[0] / preco_total));
 
         fill('orange');
-        start_arc += TWO_PI * (ppa[0] / 510);
-        arc(540, 325, 400, 400, start_arc, start_arc + TWO_PI * (ppa[1] / 510));
-            
+        start_arc += TWO_PI * (ppa[0] / preco_total);
+        arc(540, 325, 400, 400, start_arc, start_arc + TWO_PI * (ppa[1] / preco_total));
+
         fill('yellow');
-        start_arc += TWO_PI * (ppa[1] / 510);
-        arc(540, 325, 400, 400, start_arc, start_arc + TWO_PI * (ppa[2] / 510));
+        start_arc += TWO_PI * (ppa[1] / preco_total);
+        arc(540, 325, 400, 400, start_arc, start_arc + TWO_PI * (ppa[2] / preco_total));
 
         fill('blue');
-        start_arc += TWO_PI * (ppa[2] / 510);
-        arc(540, 325, 400, 400, start_arc, start_arc + TWO_PI * (ppa[3] / 510));
+        start_arc += TWO_PI * (ppa[2] / preco_total);
+        arc(540, 325, 400, 400, start_arc, start_arc + TWO_PI * (ppa[3] / preco_total));
             
         fill('black');
-        start_arc += TWO_PI * (ppa[3] / 510);
-        arc(540, 325, 400, 400, start_arc, start_arc + TWO_PI * (ppa[4] / 510));
+        start_arc += TWO_PI * (ppa[3] / preco_total);
+        arc(540, 325, 400, 400, start_arc, start_arc + TWO_PI * (ppa[4] / preco_total));
 
         fill('green');
-        start_arc += TWO_PI * (ppa[4] / 510);
-        arc(540, 325, 400, 400, start_arc, start_arc + TWO_PI * (ppa[5] / 510));
+        start_arc += TWO_PI * (ppa[4] / preco_total);
+        arc(540, 325, 400, 400, start_arc, start_arc + TWO_PI * (ppa[5] / preco_total));
         start_arc = 0;
     }
     else if (tipo == "acoes"){
         fill('red');
-        arc(540, 325, 400, 400, start_arc, TWO_PI * (ppa[0] / 150));
-        start_arc += TWO_PI * (ppa[0] / 150);
+        arc(540, 325, 400, 400, start_arc, TWO_PI * (ppa[0] / preco_acao));
+        start_arc += TWO_PI * (ppa[0] / preco_acao);
+
         fill('green');
-        arc(540, 325, 400, 400, start_arc, start_arc + TWO_PI * (ppa[4] / 150));
+        arc(540, 325, 400, 400, start_arc, start_arc + TWO_PI * (ppa[4] / preco_acao));
         start_arc = 0;
     }
 
     else if (tipo == "fiis"){
         fill('orange');
-        arc(540, 325, 400, 400, start_arc, TWO_PI * (ppa[1] / 200));
-        start_arc += TWO_PI * (ppa[1] / 200);
+        arc(540, 325, 400, 400, start_arc, TWO_PI * (ppa[1] / preco_fii));
+        start_arc += TWO_PI * (ppa[1] / preco_fii);
         fill('purple');
         arc(540, 325, 400, 400, start_arc, start_arc + TWO_PI * (ppa[5] / 200));
         start_arc = 0;
@@ -260,14 +270,14 @@ function desenharGrafico(tipo){ //desenhar grafico de acordo com tipo de ativo
 
     else if (tipo == "etfs"){
         fill('blue');
-        arc(540, 325, 400, 400, start_arc, TWO_PI * (ppa[2] / 120));
+        arc(540, 325, 400, 400, start_arc, TWO_PI * (ppa[2] / preco_etf));
         //start_arc += TWO_PI * (ppa[2] / 120);
         start_arc = 0;
     }
 
     else if (tipo == "bdrs"){
         fill('black');
-        arc(540, 325, 400, 400, start_arc, TWO_PI * (ppa[3] / 60));
+        arc(540, 325, 400, 400, start_arc, TWO_PI * (ppa[3] / preco_bdr));
         //start_arc += TWO_PI * (ppa[3] / 60);
         start_arc = 0;
     }
