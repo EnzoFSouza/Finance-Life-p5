@@ -1,42 +1,33 @@
-var width = 1500;
-var height = 700;
+var width = 1500; //Constante 
+var height = 700; //Constante
+
 var wia = 1130; //width inicial ativos
 var la = 350; //length ativos
 
-var ativos;
-var ativos_acao = []; //lista com ativos do tipo acao
-var ativos_fii = []; //lista com ativos do tipo fii
-var ativos_etf = []; //lista com ativos do tipo etf
-var ativos_bdr = []; //lista com ativos do tipo bdr
+var ativos; //responsavel por armazenar os dados do json com os ativos
+var tela = "inicio"; //tela inicial
+var tipo_ativo = "todos"; //tipo do ativo
 
-var preco_acao = 0; //precos dos ativos do tipo acao
-var preco_fii = 0; //precos dos ativos do tipo fii
-var preco_etf = 0; //precos dos ativos do tipo etf
-var preco_bdr = 0; //precos dos ativos do tipo bdr
-
-var quantidade_acao = []; //lista com quantidades dos ativos do tipo acao
-var quantidade_fii = []; //lista com quantidades dos ativos do tipo fii
-var quantidade_etf = []; //lista com quantidades dos ativos do tipo etf
-var quantidade_bdr = []; //lista com quantidades dos ativos do tipo bdr
-
-var ppa_acao = []; //precos por ativo (precos * quantidades) do tipo acao
-var ppa_fii = []; //precos por ativo (precos * quantidades) do tipo fii
-var ppa_etf = []; //precos por ativo (precos * quantidades) do tipo etf
-var ppa_bdr = []; //precos por ativo (precos * quantidades) do tipo bdr
-
-var start_arc = 0;
-
-
-var preco_total = 0;
-
+//Para formar um grafico pizza, eh preciso calcular o quanto esta alocado em cada ativo e o patrimonio total
+//Posteriormente, eh possivel separar por tipo de ativo
+//Neste projeto, irei salvar todos os ativos em uma unica lista e salvar os index (posicoes)
+//de cada tipo de ativo em listas separadas
+var patrimonio_total = 0; //patrimonio total
 var precos = []; //precos dos ativos
 var quantidades = []; //quantidades dos ativos
 var ppa = []; //precos por ativo (precos * quantidades)
 
-var pratimonio_total = 510; //patrimonio total
+var ativos_acao = []; //lista para salvar posicoes dos ativos do tipo acao
+var ativos_fii = []; //lista para salvar posicoes dos ativos do tipo fii
+var ativos_etf = []; //lista para salvar posicoes dos ativos do tipo etf
+var ativos_bdr = []; //lista para salvar posicoes dos ativos do tipo bdr
 
-var tela = "inicio"; //tela inicial
-var tipo_ativo = "todos"; //tipo do ativo
+//para fazer o grafico de acordo com um tipo de ativo especifico, eh preciso
+//calcular o patrimonio de cada tipo de ativo
+var patrimonio_acao = 0;
+var patrimonio_fii = 0;
+var patrimonio_etf = 0;
+var patrimonio_bdr = 0;
 
 function preload() {
     dados = loadJSON('ativos_novo.json');
@@ -44,94 +35,52 @@ function preload() {
 
 function setup() { //setup 
     createCanvas(1500, 700);
-    ativos = dados.ativos;
 
-    //preenchendo listas preco, quantidade e ppa de cada tipo de ativo
+    //lista com todos os ativos do json
+    ativos = dados.ativos; 
+
+    //preenchendo listas preco, quantidade, ppa e salvando index de cada tipo de ativo
     for(var i = 0; i < ativos.length; i++){
+        precos.push(ativos[i].preco);
+        quantidades.push(ativos[i].quantidade);
+        ppa.push(ativos[i].preco * ativos[i].quantidade);
+
         if (ativos[i].tipo == "acao"){
-            ativos_acao.push(ativos[i]);
-            preco_acao += ativos[i].preco;
-            quantidade_acao.push(ativos[i].quantidade);
-            ppa_acao.push(ativos[i].preco * ativos[i].quantidade);
+            ativos_acao.push(i);
+            patrimonio_acao += ativos[i].preco * ativos[i].quantidade;
         }
 
         else if (ativos[i].tipo == "fii"){
-            ativos_fii.push(ativos[i]);
-            preco_fii += ativos[i].preco;
-            quantidade_fii.push(ativos[i].quantidade);
-            ppa_fii.push(ativos[i].preco * ativos[i].quantidade);
+            ativos_fii.push(i);
+            patrimonio_fii += ativos[i].preco * ativos[i].quantidade;
         }
 
         else if (ativos[i].tipo == "etf"){
-            ativos_etf.push(ativos[i]);
-            preco_etf += ativos[i].preco;
-            quantidade_etf.push(ativos[i].quantidade);
-            ppa_etf.push(ativos[i].preco * ativos[i].quantidade);
+            ativos_etf.push(i);
+            patrimonio_etf += ativos[i].preco * ativos[i].quantidade;
         }
 
         else if (ativos[i].tipo == "bdr"){
-            ativos_bdr.push(ativos[i]);
-            preco_bdr += ativos[i].preco;
-            quantidade_bdr.push(ativos[i].quantidade);
-            ppa_bdr.push(ativos[i].preco * ativos[i].quantidade);
+            ativos_bdr.push(i);
+            patrimonio_bdr += ativos[i].preco * ativos[i].quantidade;
         }
 
-        preco_total += preco_acao + preco_fii + preco_etf + preco_bdr;
+        patrimonio_total += ativos[i].preco * ativos[i].quantidade;
     }
 
-    console.log("Preço Ações: " + preco_acao);
-    console.log("Preço FIIs: " + preco_fii);
-    console.log("Preço ETFs: " + preco_etf);
-    console.log("Preço BDRs: " + preco_bdr);
-    console.log("Preço Total: " + preco_total);
-
-    /*
-    for(var i = 0; i < ativos.length; i++){
-        console.log(ativos[i]);
-        console.log(ativos[i].nome);
-        console.log(ativos[i].preco);
-        console.log(ativos[i].tipo);
-        console.log(ativos[i].quantidade);
-    }
-    */
-
-    //calculando preco total de cada tipo de ativo
-    /*for (var j = 0; j < ativos.length; j++){
-        if (ativos[j].tipo == "acao"){
-            preco_acao += ativos[j].preco * ativos[j].quantidade;
-            ativos_acao.push(ativos[j]);
-        }
-        else if (ativos[j].tipo == "fii"){
-            preco_fii += ativos[j].preco * ativos[j].quantidade;
-            ativos_fii.push(ativos[j]);
-        }
-        else if (ativos[j].tipo == "etf"){
-            preco_etf += ativos[j].preco * ativos[j].quantidade;
-            ativos_etf.push(ativos[j]);
-        }
-        else if (ativos[j].tipo == "bdr"){
-            preco_bdr += ativos[j].preco * ativos[j].quantidade;
-            ativos_bdr.push(ativos[j]);
-        }
-
-        precos.push(ativos[j].preco);
-        quantidades.push(ativos[j].quantidade);
-        ppa.push(ativos[j].preco * ativos[j].quantidade);
-    }
-    //supondo que existem somente 4 tipos
-    preco_total = preco_acao + preco_fii + preco_etf + preco_bdr;
-    */
-    /*
-    console.log("Preço Ações: " + preco_acao);
-    console.log("Preço FIIs: " + preco_fii);
-    console.log("Preço ETFs: " + preco_etf);
-    console.log("Preço BDRs: " + preco_bdr);
-    console.log("Preço Total: " + preco_total);
+    console.log("Patrimônio Total: R$ " + patrimonio_total);
+    console.log(precos);
+    console.log(quantidades);
+    console.log(ppa);
     console.log(ativos_acao);
     console.log(ativos_fii);
     console.log(ativos_etf);
     console.log(ativos_bdr);
-    */
+
+    console.log("Patrimônio Ações: R$ " + patrimonio_acao);
+    console.log("Patrimônio FIIs: R$ " + patrimonio_fii);
+    console.log("Patrimônio ETFs: R$ " + patrimonio_etf);
+    console.log("Patrimônio BDRs: R$ " + patrimonio_bdr);
 }
 
 function draw() { //draw loop 
@@ -147,7 +96,7 @@ function draw() { //draw loop
 
         fill('black');
         textSize(32);
-        text("Pratimônio Total: R$ " + pratimonio_total, 45, 65);
+        text("Pratimônio Total: R$ " + patrimonio_total, 45, 65);
         fill('white');
 
         //retangulos com tipos de ativos
@@ -292,23 +241,71 @@ function criarBotao(x_bot, y_bot, w, h, texto, x_txt, y_txt, cor){ //create butt
     text(texto, x_txt, y_txt);
 }
 
-function desenharGrafico(tipo){//lista_ativos){ //desenhar grafico de acordo com tipo de ativo
-    /*console.log(ativos_acao);
-    console.log(ativos_fii);
-    console.log(ativos_etf);
-    console.log(ativos_bdr);
+function desenharGrafico(tipo){ //desenhar grafico de acordo com tipo de ativo
+    var cores = ['red', 'orange', 'yellow', 'blue', 'black', 'green'];
 
-    console.log(ppa_acao);
-    console.log(ppa_fii);
-    console.log(ppa_etf);
-    console.log(ppa_bdr);
+    var start_arc = -HALF_PI; //iniciar do topo
 
-    console.log(preco_acao);
-    console.log(preco_fii);
-    console.log(preco_etf);
-    console.log(preco_bdr);
-    */
-    var lista_ativos = [];
+    if(tipo == "todos"){
+        for (var i = 0; i < ppa.length; i++){
+            var angulo = TWO_PI * (ppa[i] / patrimonio_total);
+
+            fill(cores[i%6]);
+            arc(540, 325, 400, 400, start_arc, start_arc + angulo);
+
+            start_arc += angulo;
+        }
+    }
+
+    else if (tipo == "acoes"){
+        for (var i = 0; i < ativos_acao.length; i++){
+            var index = ativos_acao[i];
+            var angulo = TWO_PI * (ppa[index] / patrimonio_acao);
+
+            fill(cores[i%6]);
+            arc(540, 325, 400, 400, start_arc, start_arc + angulo);
+
+            start_arc += angulo;
+        }
+    }
+
+    else if (tipo == "fiis"){
+        for (var i = 0; i < ativos_fii.length; i++){
+            var index = ativos_fii[i];
+            var angulo = TWO_PI * (ppa[index] / patrimonio_fii);
+
+            fill(cores[i%6]);
+            arc(540, 325, 400, 400, start_arc, start_arc + angulo);
+
+            start_arc += angulo;
+        }
+    }
+
+    else if (tipo == "etfs"){
+        for (var i = 0; i < ativos_etf.length; i++){
+            var index = ativos_etf[i];
+            var angulo = TWO_PI * (ppa[index] / patrimonio_etf);
+
+            fill(cores[i%6]);
+            arc(540, 325, 400, 400, start_arc, start_arc + angulo);
+
+            start_arc += angulo;
+        }
+    }
+
+    else if (tipo == "bdrs"){
+        for (var i = 0; i < ativos_bdr.length; i++){
+            var index = ativos_bdr[i];
+            var angulo = TWO_PI * (ppa[index] / patrimonio_bdr);
+
+            fill(cores[i%6]);
+            arc(540, 325, 400, 400, start_arc, start_arc + angulo);
+
+            start_arc += angulo;
+        }
+    }
+
+    /*var lista_ativos = [];
     var ppa = [];
     var preco_total_grafico = 0;
 
@@ -341,14 +338,14 @@ function desenharGrafico(tipo){//lista_ativos){ //desenhar grafico de acordo com
         console.log("Preço ETFs: " + preco_etf);
         console.log("Preço BDRs: " + preco_bdr);
         console.log("Preço Total: " + preco_total);
-        preco_total_grafico += (preco_acao )+ preco_fii + preco_etf + preco_bdr;
+        preco_total_grafico = ppa.reduce((total, valor) => total + valor, 0);
     }
     
     console.log(lista_ativos);
     console.log(ppa);
     console.log(preco_total_grafico);
 
-    var cores = ['red', 'orange', 'yellow', 'blue', 'black', 'green'];
+    
     for (var i = 0; i < lista_ativos.length; i++){
         fill(cores[i%6]);
         arc(540, 325, 400, 400, start_arc, TWO_PI * (ppa[i] / preco_total_grafico));
@@ -359,7 +356,7 @@ function desenharGrafico(tipo){//lista_ativos){ //desenhar grafico de acordo com
             start_arc = 0;
         }
     }
-
+    */
     /*
     if (tipo == "todos"){
         fill('red');
