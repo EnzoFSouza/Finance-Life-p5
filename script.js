@@ -133,21 +133,16 @@ function draw() { //draw loop
         fill('white');
         
         //botao selecionar todos os tipos de ativos
-        rect(1210, 575, 75, 75, 5);
-        //botao adicionar ativo
-        rect(1350, 575, 75, 75, 5);
+        criarBotao(1133, 570, 165, 110, 15, "Todos", 1150, 640, 'white', 50);
 
-        fill('black');
-        textSize(20);
-        text("Total", 1240, 630);
-        textSize(32);
-        text("+", 1400, 630);
+        //botao adicionar ativo
+        criarBotao(1313, 570, 165, 110, 15, "+", 1370, 660, 'white', 102);
         fill('white');
 
         desenharGrafico(tipo_ativo);
     }
     else if (tela == "ativo1"){
-        criarBotao(1400, 620, 70, 45, "Voltar", 1410, 650, 'gray');
+        criarBotao(1400, 620, 70, 45, 15, "Voltar", 1410, 650, 'gray', 20);
     }
 
 }
@@ -207,13 +202,13 @@ function mouseClicked(){ //navigate through screens
         }
 
         //botao todos os tipos de ativos
-        else if (mouseX >= 1210 && mouseX <= 1280 && mouseY >= 570 && mouseY <= 640){
+        else if (mouseX >= 1133 && mouseX <= 1298 && mouseY >= 570 && mouseY <= 680){
             console.log("Selecionar Todos os Ativos");
             tipo_ativo = "todos";
         }
 
         //botao adiconar ativo
-        else if (mouseX >= 1350 && mouseX <= 1420 && mouseY >= 570 && mouseY <= 640){
+        else if (mouseX >= 1313 && mouseX <= 1478 && mouseY >= 570 && mouseY <= 680){
             console.log("Adicionar Ativo");
         }
     }
@@ -234,10 +229,11 @@ function escreverAtivo(x_txt, y_txt, nome, preco, tipo, qtd){ //escrever ativos
     text(qtd, x_txt + 200, y_txt + 25);
 }
 
-function criarBotao(x_bot, y_bot, w, h, texto, x_txt, y_txt, cor){ //create buttons
+function criarBotao(x_bot, y_bot, w, h, b_r, texto, x_txt, y_txt, cor, txt_size){ //create buttons
     fill(cor);
-    rect(x_bot, y_bot, w, h, 5);
+    rect(x_bot, y_bot, w, h, b_r);
     fill(0, 0, 0);
+    textSize(txt_size);
     text(texto, x_txt, y_txt);
 }
 
@@ -304,116 +300,4 @@ function desenharGrafico(tipo){ //desenhar grafico de acordo com tipo de ativo
             start_arc += angulo;
         }
     }
-
-    /*var lista_ativos = [];
-    var ppa = [];
-    var preco_total_grafico = 0;
-
-    if (tipo == "acoes"){
-        lista_ativos = ativos_acao;
-        ppa = ppa_acao;
-        preco_total_grafico = preco_acao;
-    }
-    else if (tipo == "fiis"){
-        lista_ativos = ativos_fii;
-        ppa = ppa_fii;
-        preco_total_grafico = preco_fii;
-    }
-    else if (tipo == "etfs"){
-        lista_ativos = ativos_etf;
-        ppa = ppa_etf;
-        preco_total_grafico = preco_etf;
-    }
-    else if (tipo == "bdrs"){
-        lista_ativos = ativos_bdr;
-        ppa = ppa_bdr;
-        preco_total_grafico = preco_bdr;
-    }
-
-    else{
-        lista_ativos = [...ativos_acao, ...ativos_fii, ...ativos_etf, ...ativos_bdr];
-        ppa = [...ppa_acao, ...ppa_fii, ...ppa_etf, ...ppa_bdr];
-        console.log("Preço Ações: " + preco_acao);
-        console.log("Preço FIIs: " + preco_fii);
-        console.log("Preço ETFs: " + preco_etf);
-        console.log("Preço BDRs: " + preco_bdr);
-        console.log("Preço Total: " + preco_total);
-        preco_total_grafico = ppa.reduce((total, valor) => total + valor, 0);
-    }
-    
-    console.log(lista_ativos);
-    console.log(ppa);
-    console.log(preco_total_grafico);
-
-    
-    for (var i = 0; i < lista_ativos.length; i++){
-        fill(cores[i%6]);
-        arc(540, 325, 400, 400, start_arc, TWO_PI * (ppa[i] / preco_total_grafico));
-        if (i != lista_ativos.length - 1){    
-            start_arc += TWO_PI * (ppa[i] / preco_total_grafico);
-        }
-        else{
-            start_arc = 0;
-        }
-    }
-    */
-    /*
-    if (tipo == "todos"){
-        fill('red');
-        arc(540, 325, 400, 400, start_arc, TWO_PI * (ppa[0] / preco_total));
-
-        fill('orange');
-        start_arc += TWO_PI * (ppa[0] / preco_total);
-        arc(540, 325, 400, 400, start_arc, start_arc + TWO_PI * (ppa[1] / preco_total));
-
-        fill('yellow');
-        start_arc += TWO_PI * (ppa[1] / preco_total);
-        arc(540, 325, 400, 400, start_arc, start_arc + TWO_PI * (ppa[2] / preco_total));
-
-        fill('blue');
-        start_arc += TWO_PI * (ppa[2] / preco_total);
-        arc(540, 325, 400, 400, start_arc, start_arc + TWO_PI * (ppa[3] / preco_total));
-            
-        fill('black');
-        start_arc += TWO_PI * (ppa[3] / preco_total);
-        arc(540, 325, 400, 400, start_arc, start_arc + TWO_PI * (ppa[4] / preco_total));
-
-        fill('green');
-        start_arc += TWO_PI * (ppa[4] / preco_total);
-        arc(540, 325, 400, 400, start_arc, start_arc + TWO_PI * (ppa[5] / preco_total));
-        start_arc = 0;
-    }
-    else if (tipo == "acoes"){
-        fill('red');
-        arc(540, 325, 400, 400, start_arc, TWO_PI * (ppa[0] / preco_acao));
-        start_arc += TWO_PI * (ppa[0] / preco_acao);
-
-        fill('green');
-        arc(540, 325, 400, 400, start_arc, start_arc + TWO_PI * (ppa[4] / preco_acao));
-        start_arc = 0;
-    }
-
-    else if (tipo == "fiis"){
-        fill('orange');
-        arc(540, 325, 400, 400, start_arc, TWO_PI * (ppa[1] / preco_fii));
-        start_arc += TWO_PI * (ppa[1] / preco_fii);
-        fill('purple');
-        arc(540, 325, 400, 400, start_arc, start_arc + TWO_PI * (ppa[5] / 200));
-        start_arc = 0;
-    }
-
-    else if (tipo == "etfs"){
-        fill('blue');
-        arc(540, 325, 400, 400, start_arc, TWO_PI * (ppa[2] / preco_etf));
-        //start_arc += TWO_PI * (ppa[2] / 120);
-        start_arc = 0;
-    }
-
-    else if (tipo == "bdrs"){
-        fill('black');
-        arc(540, 325, 400, 400, start_arc, TWO_PI * (ppa[3] / preco_bdr));
-        //start_arc += TWO_PI * (ppa[3] / 60);
-        start_arc = 0;
-    }
-        */
 }
